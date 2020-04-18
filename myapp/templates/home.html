@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Test Executors Results</li>
+{% endblock %}
+
+{% block content %}
+  <table class="table">
+    <thead class="thead-inverse">
+      <tr>
+        <th>Request ID</th>
+        <th>Requester</th>
+        <th>Created</th>
+        <th>Test Environment</th>
+        <th>Template</th>
+        <th>Test Status </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for test in all_tests %}
+        <tr>
+          <td class="align-middle"><a href='{% url 'get_test_status'  test.req_id %}'> {{ test.req_id }} </a></td>
+          <td class="align-middle">{{ test.username }}</td>
+          <td class="align-middle">{{ test.created }}</td>
+          <td class="align-middle"> <a href="{% url 'get_test_details'  test.test_details.pk %}"> {{ test.test_details.test_env_id }} </a> </td>
+          <td class="align-middle">{{ test.template }}</td>
+          {% if test.test_status == "Passed" %}
+            <td bgcolor="green" class="align-middle"> {{ test.test_status}} </td>
+          {% elif test.test_status == "Failed" %}
+            <td bgcolor="red" class="align-middle"> {{ test.test_status}} </td>
+          {% else %}
+            <td  class="align-middle"> {{ test.test_status}} </td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% if all_tests.has_other_pages %}
+  <ul class="pagination">
+    {% if all_tests.has_previous %}
+      <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in all_tests.paginator.page_range %}
+      {% if all_tests.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if all_tests.has_next %}
+      <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+{% endblock %}

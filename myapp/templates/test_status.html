@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Test Executors Results</li>
+{% endblock %}
+{% block content %}
+  <table class="table">
+    <thead class="thead-inverse">
+      <tr>
+
+        <th>Test Environment</th>
+        <th>Template</th>
+        <th>Test Plan IDs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td class="align-middle">{{ test_result.test_env_id }}</td>
+          <td class="align-middle">{{ test_result.template_name }}</td>
+          <td class="align-middle">1</td>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}
+
+

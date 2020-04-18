@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Test Executors Results</li>
+{% endblock %}
+{% block content %}
+  <table class="table">
+    <thead class="thead-inverse">
+      <tr>
+
+        <th>Request ID</th>
+        <th>Test State</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td class="align-middle">{{ test_status.req_id }}</td>
+          <td class="align-middle">{{ test_status.test_status }}</td>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}
+
+
